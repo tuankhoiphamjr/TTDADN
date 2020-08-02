@@ -19,9 +19,10 @@ server.listen(3000);
 var latestData;
 var minTemp=10, maxTemp=20;
 var topic_light = "Topic/LightD";
-var Topic = 'mqttbox/temp';
+var Topic = 'Topic/TempHumi';
 var Topic_2 = 'mqttbox/light'; //subscribe to all topics
-var Broker_URL = 'mqtt://13.75.111.201:1883';
+// var Broker_URL = 'mqtt://13.75.111.201:1883';
+var Broker_URL = 'mqtt://52.230.1.253:1883';
 var light_id = "LightD";
 var Database_URL = 'localhost';
 
@@ -29,8 +30,8 @@ var Database_URL = 'localhost';
 var options = {
 	clientId: 'MyMQTT',
 	port: 1883,
-	//username: 'mqtt_user',
-	//password: 'mqtt_password',	
+	username: 'BKvm',
+	password: 'Hcmut_CSE_2020',	
 	keepalive: 0
 };
 
@@ -135,9 +136,6 @@ function check_message(topic, value_mes, packet) {
 	value_2 = 1;
 	var color;
 	value_1 = value_mes[0]['values'][0];
-	console.log(minTemp);
-	console.log(value_1);
-	console.log(maxTemp);
 	if (value_1 <= minTemp) {
 		color = 222;
 	}
@@ -229,12 +227,6 @@ app.get("/export-download", function (req, res) {
 
 			results.forEach(row => {
 				let rowItemValue = [];
-				// rowItemValue.push(row.id);
-				// rowItemValue.push(row.device_id);
-				// rowItemValue.push(row.temp);
-				// rowItemValue.push(row.humid);
-				// rowItemValue.push(row.topic);
-				// rowItemValue.push(row.date);
 				Object.keys(row).forEach(key => {
 					//console.log(row[key]);
 					rowItemValue.push(row[key]);
